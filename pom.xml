@@ -11,6 +11,7 @@
 	<url>http://maven.apache.org</url>
 
 	<build>
+		<!--
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>
@@ -26,6 +27,7 @@
 				</includes>
 			</resource>
 		</resources>
+		-->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
