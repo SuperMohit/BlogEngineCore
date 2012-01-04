@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.sti.learning.model">
+	<class name="User" table="USER">
+		<id name="id" column="USER_ID">
+			<generator class="native" />
+		</id>
+		<property name="name" column="USER_NAME" type="string" />
+		<property name="password" column="USER_PASSWORD" type="string" />
+		<!-- TODO: One User to many Post -->
+		<set name="posts" inverse="true" cascade="all-delete-orphan">
+			<key column="USER_ID" not-null="true"/>
+			<one-to-many class="Post" />
+		</set>
+	</class>
+
+	<class name="Post" table="POST">
+		<id name="id" column="POST_ID">
+			<generator class="native" />
+		</id>
+		<property name="title" column="POST_TITLE" type="string" />
+		<property name="content" column="POST_CONTENT" type="string" />
+		<property name="date_created" column="POST_CREATED" type="timestamp" />
+		<property name="date_modified" column="POST_MODIFIED" type="timestamp" />
+		<!-- TODO: Many Post to one User -->
+		<many-to-one name="author" class="User" column="USER_ID"
+			not-null="true" />
+			
+		<!-- TODO: One Post to many Comment -->
+		<set name="comments" cascade="all-delete-orphan">
+			<key column="POST_ID" not-null="true"/>
+			<one-to-many class="Comment" />
+		</set>
+	</class>
+
+	<class name="Comment" table="COMMENT">
+		<id name="id" column="COMMENT_ID">
+			<generator class="native" />
+		</id>
+		<property name="name" column="COMMENT_NAME" type="string" />
+		<property name="content" column="COMMENT_CONTENT" type="string" />
+		<property name="email" column="COMMENT_EMAIL" type="string" />
+
+	</class>
+
+</hibernate-mapping>
